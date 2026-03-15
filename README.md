@@ -62,3 +62,24 @@ Accept: application/json
 GET {{BackendGateway_HostAddress}}/api/weather/weatherforecast
 Accept: application/json
 ```
+
+## Authentication Management Service
+
+1. Create ASP.NET Core Empty Project
+
+```bash
+dotnet new webapi --use-controllers -o AuthenticationService
+cd AuthenticationService
+
+# Add packages
+dotnet tool install --global dotnet-ef
+dotnet add package Microsoft.EntityFrameworkCore.InMemory
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package System.IdentityModel.Tokens.Jwt
+dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+
+# Scaffold the database
+dotnet build
+dotnet ef dbcontext scaffold "Server=localhost;Database=MyDb;User ID=SA;Password=YourStrongPassword123!;TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer --context-dir Data --output-dir Models --force
+```

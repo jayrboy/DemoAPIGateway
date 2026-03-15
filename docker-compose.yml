@@ -1,5 +1,5 @@
 services:
-  mssql-server:
+  sqlserver:
     image: mcr.microsoft.com/mssql/server:2025-latest
     environment:
       - ACCEPT_EULA=Y
@@ -9,6 +9,8 @@ services:
       - '1433:1433'
     volumes:
       - mssql:/var/opt/mssql
+    networks:
+      - virtual-network
 
   backend-gateway:
     image: ${DOCKER_REGISTRY-}backend-gateway
@@ -20,6 +22,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
+    networks:
+      - virtual-network
 
   user-service:
     image: ${DOCKER_REGISTRY-}user-service
@@ -31,6 +35,27 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
+    networks:
+      - virtual-network
+
+  authentication-service:
+    image: ${DOCKER_REGISTRY-}authentication-service
+    build:
+      context: ./AuthenticationService
+      dockerfile: Dockerfile
+    ports:
+      - '5053:80'
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=MyDb;User Id=sa;Password=YourStrongPassword123!;TrustServerCertificate=True;Encrypt=False
+    depends_on:
+      - sqlserver
+    networks:
+      - virtual-network
+
+networks:
+  virtual-network:
 
 volumes:
   mssql:

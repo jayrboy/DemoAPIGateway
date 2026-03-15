@@ -1,0 +1,22 @@
+@AuthenticationService_HostAddress = http://localhost:5053
+
+POST {{AuthenticationService_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+    "username": "superadmin",
+    "password": "1234",
+    "firstname": "Super",
+    "lastname": "Admin"
+}
+
+###
+POST {{AuthenticationService_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "superadmin",
+    "password": "1234"
+
+}
+
