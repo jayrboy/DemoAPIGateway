@@ -1,0 +1,8 @@
+@BackendGateway_HostAddress = http://localhost:5000
+
+GET {{BackendGateway_HostAddress}}/
+Accept: application/json
+
+###
+GET {{BackendGateway_HostAddress}}/api/weather/weatherforecast
+Accept: application/json
