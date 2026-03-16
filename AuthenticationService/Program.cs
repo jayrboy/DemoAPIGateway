@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.SqlClient;
 using System.Text;
 using AuthenticationService.Data;
 using AuthenticationService.Models;
@@ -44,6 +45,14 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+
+    // using var scope = app.Services.CreateScope();
+    // var dbContext = scope.ServiceProvider.GetRequiredService<MyDbContext>();
+
+    // if (dbContext.Database.GetPendingMigrations().Any())
+    // {
+    //     dbContext.Database.Migrate();
+    // }
 }
 
 app.UseHttpsRedirection();

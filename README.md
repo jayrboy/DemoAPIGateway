@@ -83,3 +83,10 @@ dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
 dotnet build
 dotnet ef dbcontext scaffold "Server=localhost;Database=MyDb;User ID=SA;Password=YourStrongPassword123!;TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer --context-dir Data --output-dir Models --force
 ```
+
+2. Migrate the database
+
+```bash
+dotnet ef migrations add InitialMigration -o Migrations
+dotnet ef database update
+```

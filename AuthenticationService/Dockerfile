@@ -5,7 +5,6 @@ FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
 USER $APP_UID
 WORKDIR /app
 
-ENV ASPNETCORE_URLS=http://+:5053
 EXPOSE 5053
 
 # This stage is used to build the service project
